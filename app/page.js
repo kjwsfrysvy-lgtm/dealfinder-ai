@@ -24,16 +24,6 @@ export default function Home() {
 
   return (
     <main style={{ padding: '24px', fontFamily: 'sans-serif', color: '#fff', backgroundColor: '#0f172a', minHeight: '100vh' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 24px', borderBottom: '1px solid #1e293b' }}>
-        <h1 style={{ fontSize: '20px', fontWeight: 'bold' }}>DealFinder AI</h1>
-        <button 
-          onClick={() => alert("Connexion / Authentification Clerk active")}
-          style={{ padding: '8px 16px', backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
-        >
-          Se connecter
-        </button>
-      </header>
-
       <div style={{ textAlign: 'center', margin: '40px 0' }}>
         <h2>🚀 DealFinder AI - Intelligence M&A & Sourcing Off-Market</h2>
         <p style={{ color: '#94a3b8' }}>Détectez les meilleures opportunités de rachat SaaS & Tech grâce à notre algorithme d'analyse prédictive.</p>
