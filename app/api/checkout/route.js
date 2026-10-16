@@ -22,6 +22,7 @@ export async function POST(req) {
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
+    console.error("Erreur Stripe API :", err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
