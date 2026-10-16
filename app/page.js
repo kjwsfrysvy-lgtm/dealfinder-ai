@@ -16,7 +16,7 @@ export default function Home() {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw-new Error("Le serveur a renvoyé une page HTML au lieu d'une réponse API. Vérifiez la route /api/checkout.");
+        throw new Error("Le serveur a renvoyé une page HTML au lieu d'une réponse API. Vérifiez la route /api/checkout.");
       }
 
       if (response.ok && data.url) {
