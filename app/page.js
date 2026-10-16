@@ -1,7 +1,5 @@
 'use client';
 
-import { loadStripe } from '@stripe/stripe-js';
-
 export default function Home() {
   const handleCheckout = async (priceId) => {
     try {
