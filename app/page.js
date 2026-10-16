@@ -1,4 +1,26 @@
+'use client'
+
 export default function Home() {
+
+  const handleSubscribe = async (priceId) => {
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ priceId }),
+      })
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        alert("Erreur lors de la redirection vers le paiement.")
+      }
+    } catch (error) {
+      console.error(error)
+      alert("Une erreur est survenue.")
+    }
+  }
+
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 20px', fontFamily: 'sans-serif' }}>
       
@@ -17,7 +39,7 @@ export default function Home() {
         
         {/* Cibles Off-Market */}
         <div style={{ backgroundColor: '#1e293b', padding: '24px', borderRadius: '12px', border: '1px solid #334155' }}>
-          <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px', color: '#f8fafc' }}>
             🎯 Cibles Off-Market Qualifiées
           </h2>
           
@@ -73,8 +95,10 @@ export default function Home() {
                 <li>Export des rapports synthétiques</li>
               </ul>
             </div>
-            <button style={{ backgroundColor: '#2563eb', color: '#ffffff', padding: '14px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold', width: '100%' }}>
-              Souscrire au Plan Pro
+            <button 
+              onClick={() => handleSubscribe('price_1URD2hH1RZqAaUpN0SQvBJV2')}
+              style={{ backgroundColor: '#2563eb', color: '#ffffff', padding: '14px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold', width: '100%' }}>
+              Souscrire au Plan Pro (149€)
             </button>
           </div>
 
@@ -94,8 +118,10 @@ export default function Home() {
                 <li>Accompagnement deal-flow sur-mesure</li>
               </ul>
             </div>
-            <button style={{ backgroundColor: '#16a34a', color: '#ffffff', padding: '14px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold', width: '100%' }}>
-              Souscrire à Pro Investor
+            <button 
+              onClick={() => handleSubscribe('price_1UQvYxH1RZqAaUpNfCFsE5pM')}
+              style={{ backgroundColor: '#16a34a', color: '#ffffff', padding: '14px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold', width: '100%' }}>
+              Souscrire à Pro Investor (2 990€)
             </button>
           </div>
 
