@@ -13,14 +13,14 @@ export default function Home() {
 
       const data = await response.json();
 
-      if (data.url) {
+      if (response.ok && data.url) {
         window.location.href = data.url;
       } else {
-        alert(data.error || "Une erreur est survenue lors de la redirection vers le paiement.");
+        alert("Erreur Stripe : " + (data.error || "Réponse invalide du serveur"));
       }
     } catch (err) {
-      console.error(err);
-      alert("Erreur de connexion au serveur de paiement.");
+      console.error("Erreur technique complète :", err);
+      alert("Erreur de connexion : " + err.message);
     }
   };
 
