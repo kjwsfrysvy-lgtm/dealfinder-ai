@@ -1,35 +1,24 @@
 'use client';
 
-import Stripe from 'stripe';
-
 export default function Home() {
   const handleCheckout = async (priceId) => {
     try {
-      // Appel direct sécurisé via une Server Action inline
-      const res = await fetch('/api/checkout', {
+      const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ priceId }),
       });
 
-      // Si la route API n'est pas trouvée (HTML renvoyé), on simule la redirection Stripe Test pour valider instantanément ton tunnel
-      const contentType = res.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        // Redirection de secours intelligente vers le checkout Stripe de test direct si l'API est contournée
-        window.location.href = `https://checkout.stripe.com/c/pay/${priceId}`;
-        return;
-      }
+      const data = await response.json();
 
-      const data = await res.json();
-      if (data.url) {
+      if (response.ok && data.url) {
         window.location.href = data.url;
       } else {
-        alert("Erreur : " + (data.error || "Impossible de générer la session de paiement."));
+        alert("Erreur Stripe : " + (data.error || "Impossible de créer la session de paiement."));
       }
     } catch (err) {
       console.error(err);
-      // Fallback direct de sécurité pour ne jamais bloquer ton test de tunnel de vente
-      window.location.href = "https://dashboard.stripe.com/test/payments";
+      alert("Erreur de connexion au serveur de paiement.");
     }
   };
 
