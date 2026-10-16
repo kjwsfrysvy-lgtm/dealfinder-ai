@@ -9,16 +9,23 @@ export default function Home() {
         body: JSON.stringify({ priceId }),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        alert(`Erreur Serveur (${response.status}) : La route /api/checkout n'a pas renvoyé du JSON.`);
+        return;
+      }
 
       if (response.ok && data.url) {
         window.location.href = data.url;
       } else {
-        alert("Erreur Stripe : " + (data.error || "Impossible de créer la session de paiement."));
+        alert("Erreur Stripe : " + (data.error || "Impossible de générer la session."));
       }
     } catch (err) {
       console.error(err);
-      alert("Erreur de connexion au serveur de paiement.");
+      alert("Erreur réseau : " + err.message);
     }
   };
 
