@@ -1,20 +1,17 @@
 'use client';
 
 export default function Home() {
-  const handleCheckout = async (priceId) => {
-    try {
-      // Redirection directe vers le lien de paiement sécurisé Stripe configuré avec tes identifiants
-      const checkoutUrls = {
-        'price_1URD2hH1RZqAaUpN0SQvBJV2': 'https://buy.stripe.com/test_eVq3d0123456789', // Plan Pro 149€
-        'price_1UQvYxH1RZqAaUpNfCFsE5pM': 'https://buy.stripe.com/test_7gH9s0123456789'  // Pro Investor 2990€
-      };
+  const handleCheckout = (planType) => {
+    // Remplace ces liens par tes liens de paiement Stripe (Payment Links) créés depuis ton Dashboard Stripe
+    const stripePaymentLinks = {
+      pro: 'https://buy.stripe.com/test_bJebJ12Us6wd8da0fl9ws02',
+      investor: 'https://buy.stripe.com/test_8x228reDa2fXbpm0fl9ws03'
+    };
 
-      // Si tu n'as pas de liens de paiement directs configurés dans ton Dashboard Stripe, 
-      // on déclenche une redirection de secours vers la page de test ou une session simulée
-      window.location.href = `https://checkout.stripe.com/pay/${priceId}`;
-    } catch (err) {
-      console.error(err);
-      alert("Erreur lors de l'accès au paiement.");
+    if (planType === 'pro') {
+      window.location.href = stripePaymentLinks.pro;
+    } else {
+      window.location.href = stripePaymentLinks.investor;
     }
   };
 
@@ -53,7 +50,7 @@ export default function Home() {
               <li>Export des rapports synthétiques</li>
             </ul>
             <button 
-              onClick={() => handleCheckout('price_1URD2hH1RZqAaUpN0SQvBJV2')}
+              onClick={() => handleCheckout('pro')}
               style={{ width: '100%', padding: '12px', backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}
             >
               Souscrire au Plan Pro (149€)
@@ -72,7 +69,7 @@ export default function Home() {
               <li>Accompagnement deal-flow sur-mesure</li>
             </ul>
             <button 
-              onClick={() => handleCheckout('price_1UQvYxH1RZqAaUpNfCFsE5pM')}
+              onClick={() => handleCheckout('investor')}
               style={{ width: '100%', padding: '12px', backgroundColor: '#16a34a', color: '#fff', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}
             >
               Souscrire à Pro Investor (2 990€)
