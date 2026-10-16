@@ -1,26 +1,32 @@
 'use client';
 
+import { loadStripe } from '@stripe/stripe-js';
+
 export default function Home() {
   const handleCheckout = async (priceId) => {
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ priceId }),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        throw-new Error("Le serveur a renvoyé une page HTML au lieu d'une réponse API. Vérifiez la route /api/checkout.");
+      }
 
       if (response.ok && data.url) {
         window.location.href = data.url;
       } else {
-        alert("Erreur Stripe : " + (data.error || "Réponse invalide du serveur"));
+        alert("Erreur Stripe : " + (data.error || "Une erreur est survenue."));
       }
     } catch (err) {
-      console.error("Erreur technique complète :", err);
-      alert("Erreur de connexion : " + err.message);
+      console.error(err);
+      alert("Erreur : " + err.message);
     }
   };
 
