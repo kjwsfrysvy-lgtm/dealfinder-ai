@@ -1,85 +1,94 @@
-'use client';
-
-import React, { useState } from 'react';
-
-const mockTargets = [
-  {
-    id: '1',
-    name: 'CloudSync Pro',
-    category: 'SaaS B2B / DevOps',
-    arrEstimate: '4,2 M €',
-    growthYoY: '+52%',
-    employeeCount: 28,
-    dealScore: 94,
-    summary: 'SaaS autofinancé à forte rentabilité. Augmentation massive du trafic web (+80% en 6 mois) et aucun investisseur institutionnel au capital.'
-  },
-  {
-    id: '2',
-    name: 'DataPulse Analytics',
-    category: 'IA / Business Intelligence',
-    arrEstimate: '2,8 M €',
-    growthYoY: '+68%',
-    employeeCount: 19,
-    dealScore: 88,
-    summary: 'Signal fort : Recrutement accéléré de cadres commerciaux Grands Comptes. Opportunité de croissance externe idéale pour fonds Mid-Market.'
-  }
-];
-
 export default function Home() {
-  const [selectedTarget, setSelectedTarget] = useState(mockTargets[0]);
+  const stripePaymentUrl = "https://buy.stripe.com/test_9B68wP7aI3k1dxu8LR9ws00";
 
   return (
-    <div style={{ backgroundColor: '#0f172a', color: '#ffffff', minHeight: '100vh', fontFamily: 'sans-serif', padding: '24px' }}>
-      <header style={{ borderBottom: '1px solid #334155', paddingBottom: '16px', marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0 }}>🚀 DealFinder AI - Radar M&A Tech</h1>
-        <span style={{ backgroundColor: '#065f46', color: '#34d399', padding: '6px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold' }}>
+    <div className="min-h-screen bg-slate-950 text-slate-100 p-8 font-sans">
+      <header className="max-w-6xl mx-auto flex justify-between items-center mb-10 pb-4 border-b border-slate-800">
+        <h1 className="text-2xl font-bold flex items-center gap-2">
+          🚀 DealFinder AI - Radar M&A Tech
+        </h1>
+        <span className="bg-emerald-500/10 text-emerald-400 text-xs px-3 py-1 rounded-full border border-emerald-500/20 font-medium">
           • 12 Nouvelles opportunités détectées
         </span>
       </header>
 
-      <div style={{ display: 'flex', gap: '24px' }}>
-        {/* Liste des cibles */}
-        <div style={{ width: '50%' }}>
-          <h2 style={{ fontSize: '18px', marginBottom: '16px' }}>Cibles Off-Market Qualifiées</h2>
-          {mockTargets.map((target) => (
-            <div 
-              key={target.id}
-              onClick={() => setSelectedTarget(target)}
-              style={{
-                backgroundColor: selectedTarget.id === target.id ? '#1e293b' : '#0f172a',
-                border: selectedTarget.id === target.id ? '2px solid #6366f1' : '1px solid #334155',
-                borderRadius: '12px',
-                padding: '16px',
-                marginBottom: '16px',
-                cursor: 'pointer'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <h3 style={{ margin: 0, fontSize: '18px' }}>{target.name}</h3>
-                <span style={{ color: '#818cf8', fontWeight: 'bold' }}>Score : {target.dealScore}/100</span>
+      <main className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Colonne de gauche : Liste des opportunités */}
+        <div className="md:col-span-1 bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl">
+          <h2 className="text-lg font-semibold mb-4 text-slate-200">
+            Cibles Off-Market Qualifiées
+          </h2>
+          <div className="space-y-3">
+            <div className="p-4 bg-slate-800/80 border border-indigo-500/30 rounded-lg cursor-pointer hover:border-indigo-500 transition-all">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-bold text-indigo-300">CloudSync Pro</h3>
+                  <p className="text-xs text-slate-400">SaaS B2B / DevOps</p>
+                </div>
+                <span className="text-xs font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">
+                  Score : 94/100
+                </span>
               </div>
-              <p style={{ color: '#94a3b8', fontSize: '14px', margin: '8px 0' }}>{target.category}</p>
-              <div style={{ display: 'flex', gap: '16px', fontSize: '12px', marginTop: '12px', borderTop: '1px solid #334155', paddingTop: '8px' }}>
-                <div>ARR : <strong>{target.arrEstimate}</strong></div>
-                <div>Croissance : <strong style={{ color: '#34d399' }}>{target.growthYoY}</strong></div>
-                <div>Effectifs : <strong>{target.employeeCount} sal.</strong></div>
+              <div className="mt-3 flex gap-4 text-xs text-slate-400">
+                <span>ARR : <strong>4,2 M€</strong></span>
+                <span>Croissance : <strong className="text-emerald-400">+52%</strong></span>
+                <span>Effectifs : <strong>28 sal.</strong></span>
               </div>
             </div>
-          ))}
+
+            <div className="p-4 bg-slate-800/40 border border-slate-800 rounded-lg opacity-80">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-bold text-slate-300">DataPulse Analytics</h3>
+                  <p className="text-xs text-slate-500">IA / Business Intelligence</p>
+                </div>
+                <span className="text-xs font-bold text-slate-400 bg-slate-800 px-2 py-0.5 rounded">
+                  Score : 88/100
+                </span>
+              </div>
+              <div className="mt-3 flex gap-4 text-xs text-slate-500">
+                <span>ARR : <strong>2,8 M€</strong></span>
+                <span>Croissance : <strong className="text-emerald-500/80">+68%</strong></span>
+                <span>Effectifs : <strong>19 sal.</strong></span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Détails IA */}
-        <div style={{ width: '50%', backgroundColor: '#1e293b', padding: '24px', borderRadius: '12px', border: '1px solid #334155' }}>
-          <h2 style={{ marginTop: 0 }}>{selectedTarget.name}</h2>
-          <p style={{ color: '#818cf8' }}>{selectedTarget.category}</p>
-          <hr style={{ borderColor: '#334155', margin: '16px 0' }} />
-          <h3 style={{ fontSize: '16px' }}>Thèse d'investissement IA</h3>
-          <p style={{ lineHeight: '1.6', color: '#cbd5e1' }}>{selectedTarget.summary}</p>
-          <button style={{ backgroundColor: '#4f46e5', color: '#fff', border: 'none', padding: '12px 20px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', marginTop: '16px' }}>
-            Accéder au Rapport Complet (Abonnement Pro)
-          </button>
+        {/* Colonne de droite : Détails de la cible & Bouton Stripe */}
+        <div className="md:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-start border-b border-slate-800 pb-4 mb-4">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-100">CloudSync Pro</h2>
+                <p className="text-sm text-indigo-400 mt-1">SaaS B2B / DevOps</p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">
+                Thèse d'investissement IA
+              </h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                SaaS autofinancé à forte rentabilité. Augmentation massive du trafic web (+80% en 6 mois) et aucun investisseur institutionnel au capital.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 pt-6 border-t border-slate-800">
+            <a
+              href={stripePaymentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block w-full md:w-auto"
+            >
+              <button className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-3 rounded-lg transition-all shadow-lg shadow-indigo-600/20 active:scale-95 cursor-pointer">
+                Accéder au Rapport Complet (Abonnement Pro)
+              </button>
+            </a>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
