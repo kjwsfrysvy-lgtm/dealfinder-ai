@@ -1,11 +1,16 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 export async function POST(req) {
   try {
-    const { priceId } = await req.json();
+    const body = await req.json();
+    const { priceId } = body;
+
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return NextResponse.json({ error: "STRIPE_SECRET_KEY est manquante dans Vercel." }, { status: 500 });
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -22,7 +27,7 @@ export async function POST(req) {
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
-    console.error("Erreur Stripe API :", err);
+    console.error("Erreur Stripe détaillée:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
